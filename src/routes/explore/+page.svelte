@@ -1,8 +1,8 @@
 <script lang="ts">
     import ImagePreviewer from "$lib/assets/ImagePreviewer.svelte";
-  import { cubicInOut } from "svelte/easing";
-  import { fade, fly, slide } from "svelte/transition";
-
+    import { cubicInOut } from "svelte/easing";
+    import { fly } from "svelte/transition";
+    import { PUBLIC_EXPLORE } from "$env/static/public"
     let sidebar_opened = $state(false)
     let selected_item:{
       image:string,
@@ -19,7 +19,7 @@
     }
     let files = $state([])
     const api_request = async ()=>{
-      const response = await fetch("https://api.ahogehub.org/item",{
+      const response = await fetch( PUBLIC_EXPLORE ,{
         method:"GET",
         mode:"cors"
       });
@@ -48,7 +48,7 @@
       {:then res} 
         {#if res && res.files && res.files.length}
           {#each res.files as file}
-            <ImagePreviewer src={"https://api.kurosiko.com/item/"+file} onclick={callback}/>
+            <ImagePreviewer src={PUBLIC_EXPLORE+file} onclick={callback}/>
           {/each}
         {:else}
           <p>No files</p>

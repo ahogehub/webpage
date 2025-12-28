@@ -1,6 +1,7 @@
 <script lang="ts">
 import Upload from "$lib/assets/Upload.svelte";
-import { blur, crossfade, draw, fade, slide } from "svelte/transition";
+import { fade, slide } from "svelte/transition";
+import { PUBLIC_UPLOAD } from "$env/static/public"
 const drophandler = (event: DragEvent) => {
     event.preventDefault();
     const files = event.dataTransfer?.files;
@@ -30,7 +31,7 @@ const uploader = ()=>{
     const formdata = new FormData();
     formdata.append("file",item.file)
     const xhr = new XMLHttpRequest();
-    xhr.open("POST","https://api.ahogehub.org/upload");
+    xhr.open("POST",PUBLIC_UPLOAD);
     xhr.upload.onprogress = (event)=>{
         if(event.lengthComputable){
             const loaded = event.loaded;

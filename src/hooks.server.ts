@@ -1,10 +1,11 @@
 import type { Handle } from "@sveltejs/kit";
-
+import { LOGIN_SESSION, LOGIN_REFRESH} from "$env/static/private"
 type SessionLogin = {
     user_id: string;
     username: string;
     message: string;
 }
+
 type RefreshLogin = {
     user_id: string;
     username: string;
@@ -17,7 +18,7 @@ export const handle: Handle = async ({ event, resolve }) => {
     const session_token = event.cookies.get('session_token');
     const refresh_token = event.cookies.get('refresh_token');
     if (session_token) {
-        const session_login_response = await fetch('https://api.ahogehub.org/login/session', {
+        const session_login_response = await fetch(LOGIN_SESSION, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -35,7 +36,7 @@ export const handle: Handle = async ({ event, resolve }) => {
         }
     }
     if (refresh_token) {
-        const refresh_login_response = await fetch('https://api.ahogehub.org/login/refresh', {
+        const refresh_login_response = await fetch(LOGIN_REFRESH, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

@@ -1,5 +1,5 @@
+import { LOGIN_RAW, SIGNUP } from '$env/static/private';
 import { fail, type Actions } from '@sveltejs/kit';
-
 type LoginResponse = {
     user_id: string;
     username: string;
@@ -15,7 +15,7 @@ export const actions: Actions = {
         if (!username || !password) {
             return fail(400, { username, missing: true });
         }
-        const res = await fetch('https://api.ahogehub.org/login', {
+        const res = await fetch(LOGIN_RAW, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -48,7 +48,7 @@ export const actions: Actions = {
         if (!username || !password) {
             return fail(400, { username, missing: true });
         }
-        const res = await fetch('https://api.ahogehub.org/signup', {
+        const res = await fetch(SIGNUP, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
